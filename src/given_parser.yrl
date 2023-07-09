@@ -1,13 +1,15 @@
-Nonterminals scenario clause prefix terms term words.
-Terminals and_ atom date given hexadecimal int then when_ word.
+Nonterminals scenario given_clause when_clause then_clause terms term words.
+Terminals atom date given_ hexadecimal int then_ when_ word.
 Rootsymbol scenario.
 
 % Scenario is a list of clauses
-scenario -> clause : ['$1'].
-scenario -> clause scenario : ['$1'|'$2'].
+scenario -> given_clause when_clause then_clause : ['$1', '$2', '$3'].
 
-% Clause is a prefix followed by list of terms
-clause -> prefix terms : ['$1', '$2'].
+given_clause -> given_ terms : {extract_token('$1'), '$2'}.
+when_clause  -> when_ terms : {extract_token('$1'), '$2'}.
+when_clause  -> '$empty' : nil.
+then_clause  -> then_ terms : {extract_token('$1'), '$2'}.
+then_clause  -> '$empty' : nil.
 
 % Phrase is a list of words
 
@@ -19,22 +21,22 @@ words -> word words : ['$1'|'$2'].
 terms -> term : ['$1']. 
 terms -> term terms : ['$1'|'$2']. 
 
-term -> atom        : extract_token('$1').
+term -> atom        : extract_value('$1').
 term -> date        : extract_date('$1').
 term -> hexadecimal : extract_hexadecimal('$1').
-term -> int         : extract_token('$1').
+term -> int         : extract_value('$1').
 term -> words       : extract_words_as_atom('$1').
 
-prefix -> and_   : extract_prefix('$1').
-prefix -> given  : extract_prefix('$1').
-prefix -> then   : extract_prefix('$1').
-prefix -> when_  : extract_prefix('$1').
+% prefix -> and_   : extract_prefix('$1').
+% given_ -> given_.
+% then_ -> then_.
+% when_ -> when_.
 
 Erlang code.
 
-extract_prefix({Token, _Line}) -> Token.
+extract_token({Token, _Line}) -> Token.
 
-extract_token({_Token, _Line, Value}) -> Value.
+extract_value({_Token, _Line, Value}) -> Value.
 
 extract_date({_Token, _Line, Value}) -> apply('Elixir.Date', 'from_iso8601!', [Value]).
 

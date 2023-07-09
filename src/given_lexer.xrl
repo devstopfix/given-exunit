@@ -22,10 +22,10 @@ Rules.
 {AND}         : {token, {and_, TokenLine}}.
 {ATOM}        : {token, {atom, TokenLine, to_atom(TokenChars)}}.
 {DATE}        : {token, {date, TokenLine, characters_to_binary(TokenChars)}}.
-{GIVEN}       : {token, {given, TokenLine}}.
+{GIVEN}       : {token, {given_, TokenLine}}.
 {INT}         : {token, {int,  TokenLine, list_to_integer(TokenChars)}}.
 {HEXADECIMAL} : {token, {hexadecimal,  TokenLine, characters_to_binary(TokenChars)}}.
-{THEN}        : {token, {then, TokenLine}}.
+{THEN}        : {token, {then_, TokenLine}}.
 {WHEN}        : {token, {when_, TokenLine}}.
 {WORD}        : {token, {word, TokenLine, characters_to_binary(TokenChars)}}.
 {WHITESPACE}+ : skip_token.

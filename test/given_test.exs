@@ -2,6 +2,9 @@ defmodule GivenTest do
   use ExUnit.Case
   use Given.Case
 
+  import Given.Parser, only: [parse!: 2]
+  alias Given.SyntaxError
+
   # feature "first"
 
   # Uncomment to see "Not implemented"
@@ -16,7 +19,7 @@ defmodule GivenTest do
   # scenario "Given", ~s[Given]
 
   describe "Parse atoms" do
-    scenario "Given atom", ~s[Given :a]
+    scenario "Given atom", ~s[Given :a When to string Then a]
   end
 
   describe "Parse numbers" do
@@ -33,21 +36,48 @@ defmodule GivenTest do
   describe "Parse givens" do
     scenario "Given precondition", ~s[Given some precondition]
 
-    scenario "Given And", ~s"Given some precondition And some other precondition"
+    # scenario "Given And", ~s"Given some precondition And some other precondition"
 
-    scenario "Given And multiline", ~s"""
-    Given some precondition
-    And some other precondition
-    """
+    # scenario "Given And multiline", ~s"""
+    # Given some precondition
+    # And some other precondition
+    # """
   end
 
   describe "Parse scenarios" do
     scenario "Given only", ~s[Given precondition]
 
-    scenario "Given when", ~s"""
+    scenario "Given When", ~s"""
     Given precondition
     When command
     """
+
+    scenario "Given When Then", ~s"""
+    Given precondition
+    When command
+    Then postcondition
+    """
+  end
+
+  describe "Invalid scenarios" do
+    test "When without Given" do
+      assert_invalid_scenario(~s"""
+      When command
+      """)
+    end
+
+    test "When before Given" do
+      assert_invalid_scenario(~s"""
+      When command
+      Given precondition
+      """)
+    end
+  end
+
+  def assert_invalid_scenario(prose) do
+    assert_raise SyntaxError, fn ->
+      parse!(prose, %{file: "", line: 0})
+    end
   end
 
   # scenario "test with prose" do

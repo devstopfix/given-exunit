@@ -40,9 +40,8 @@ extract_value({_Token, _Line, Value}) -> Value.
 
 extract_date({_Token, _Line, Value}) -> apply('Elixir.Date', 'from_iso8601!', [Value]).
 
-% TODO remove 0x
-extract_hexadecimal({_Token, _Line, Value}) -> 
-    {n, ""} = apply('Elixir.Integer', 'parse', [Value, 16]), n.
+extract_hexadecimal({_Token, _Line, <<"0x", Value/binary>>}) -> 
+    {N, <<>>} = apply('Elixir.Integer', 'parse', [Value, 16]), N.
 
 extract_words_as_atom([{_T, _L, H}| T]) -> 
     Words = lists:foldl(fun ({_, _, Value}, Acc) -> <<Acc/binary, "_", Value/binary>> end, H, T),

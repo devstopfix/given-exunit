@@ -9,7 +9,7 @@ defmodule GivenTest do
 
   # scenario "Given", ~s[Given]
 
-  # scenario "Given atom", ~s[Given :a]
+  scenario "Given atom", ~s[Given :a]
 
   scenario "Given integer", ~s[Given 1]
 

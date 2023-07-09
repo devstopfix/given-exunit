@@ -1,5 +1,5 @@
 Nonterminals sentence clause prefix terms term.
-Terminals and_ date given int then when_.
+Terminals and_ atom date given int then when_.
 Rootsymbol sentence.
 
 sentence -> clause : ['$1'].
@@ -10,6 +10,7 @@ clause -> prefix terms : ['$1', '$2'].
 terms -> term : ['$1']. 
 terms -> term terms : ['$1'|'$2']. 
 
+term -> atom     : extract_token('$1').
 term -> date     : extract_date('$1').
 term -> int      : extract_token('$1').
 

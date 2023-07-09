@@ -62,6 +62,8 @@ defmodule Given.Case do
         Enum.reduce(result, context, fn {k, v}, acc ->
           Map.put(acc, k, v)
         end)
+      [k | _] = ks when is_atom(k) ->
+        Map.drop(context, ks)
       _ ->
         context
     end

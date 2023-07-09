@@ -14,22 +14,25 @@ defmodule Given.ContextTest do
     When :b is 2
     Then both
     """
-  end
 
-  describe "Context append" do
     scenario "steps append to context", ~s"""
     Given :b is 2
     When :c equals :a plus :b
     Then :c equals 3
     """
-  end
 
-  describe "Context unchanged" do
     scenario "steps can leave context unchanged", ~s"""
     Given :a is 1
     When nop
     Then :a is 1
     """
+
+    scenario "steps can remove from context", ~s"""
+    Given :b is 1
+    When delete :a
+    Then :b replaced :a
+    """
+
   end
 
   def given_(%{a: 1}, {:a, :is, 1}), do: true
@@ -42,9 +45,16 @@ defmodule Given.ContextTest do
 
   def when_(_, {:nop}), do: []
 
+  def when_(_, {:delete, key}) when key in [:a], do: [key]
+
   def then_(%{c: c}, {:c, :equals, expected}), do: assert c == expected
 
   def then_(%{a: 1, b: 2}, {:both}), do: true
 
   def then_(%{a: a}, {:a, :is, expected}), do: assert a == expected
+
+  def then_(context, {:b, :replaced, :a}) do
+    assert Map.get(context, :b) == 1
+    refute Map.has_key?(context, :a)
+  end
 end

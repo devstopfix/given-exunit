@@ -1,19 +1,27 @@
 defmodule GivenTest do
   use ExUnit.Case
   use Given.Case
-  # doctest Given
 
   # feature "first"
 
-  scenario "Placeholder"
+  # Uncomment to see "Not implemented"
+  #scenario "Placeholder"
 
   # scenario "Given", ~s[Given]
 
-  scenario "Given atom", ~s[Given :a]
+  describe "Parse atoms" do
+    scenario "Given atom", ~s[Given :a]
+  end
 
-  scenario "Given integer", ~s[Given 1]
+  describe "Parse numbers" do
+    scenario "Given zero", ~s[Given 0]
+    scenario "Given integer", ~s[Given 1]
+    scenario "Given negative integer", ~s[Given -1]
+  end
 
-  scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
+  describe "Parse dates" do
+    scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
+  end
 
   # feature "second", ~s()
 

@@ -5,7 +5,7 @@ WHEN       = (When|WHEN)
 THEN       = (Then|THEN)
 AND        = (And|AND)
 
-INT        = [0-9]+
+INT        = -?[0-9]+
 ATOM       = :[a-z_]+
 WHITESPACE = [\s\t\n\r,\.]
 

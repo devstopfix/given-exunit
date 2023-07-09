@@ -1,5 +1,4 @@
 defmodule Given.Generators do
-
   use PropCheck
 
   def given, do: "Given" |> cases() |> elements()
@@ -28,17 +27,16 @@ defmodule Given.Generators do
   end
 
   defp month_30 do
-    let {m, d} <- {elements([4,6,9,11]), integer(1, 30)} do
+    let {m, d} <- {elements([4, 6, 9, 11]), integer(1, 30)} do
       {m, d}
     end
   end
 
   defp month_31 do
-    let {m, d} <- {elements([1,3,5,7,8,10,12]), integer(1, 31)} do
+    let {m, d} <- {elements([1, 3, 5, 7, 8, 10, 12]), integer(1, 31)} do
       {m, d}
     end
   end
 
   defp cases(s), do: [s, String.upcase(s)]
-
 end

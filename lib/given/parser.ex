@@ -1,5 +1,4 @@
 defmodule Given.Parser do
-
   alias Given.SyntaxError
 
   def parse(b) when is_binary(b), do: b |> to_charlist() |> parse()
@@ -15,10 +14,12 @@ defmodule Given.Parser do
     case parse(prose) do
       {:ok, result} ->
         {:ok, result}
+
       {:error, {sub_line, :given_lexer, error}, _} ->
-        raise SyntaxError, [error: error, file: file, line: line + sub_line - 1]
+        raise SyntaxError, error: error, file: file, line: line + sub_line - 1
+
       {:error, {sub_line, :given_parser, error}} ->
-        raise SyntaxError, [error: error, file: file, line: line + sub_line - 1]
+        raise SyntaxError, error: error, file: file, line: line + sub_line - 1
     end
   end
 end

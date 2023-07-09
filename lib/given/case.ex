@@ -1,5 +1,4 @@
 defmodule Given.Case do
-
   @moduledoc """
   Extend ExUnit test cases with feature tests.
 
@@ -35,7 +34,6 @@ defmodule Given.Case do
     # TODO add line number to parser error line!
     %{module: mod, file: file, line: line} = __CALLER__
 
-
     quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, prose: prose] do
       {:ok, _} = Given.Parser.parse!(prose, %{file: file, line: line})
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:feature])
@@ -46,7 +44,5 @@ defmodule Given.Case do
         then(false)
       end
     end
-
   end
-
 end

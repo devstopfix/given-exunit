@@ -54,7 +54,17 @@ defmodule Given.Case do
   def execute_steps(context, _mod, []), do: context
 
   def execute_steps(context, mod, [{step, args} | steps]) do
-    apply(mod, step, [context, args])
-    execute_steps(context, mod, steps)
+    result = apply(mod, step, [context, args])
+    new_context = case result do
+      [] ->
+        context
+      [{k, _v} | _ ] when is_atom(k) ->
+        Enum.reduce(result, context, fn {k, v}, acc ->
+          Map.put(acc, k, v)
+        end)
+      _ ->
+        context
+    end
+    execute_steps(new_context, mod, steps)
   end
 end

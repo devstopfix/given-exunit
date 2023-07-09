@@ -33,6 +33,12 @@ defmodule Given.ContextTest do
     Then :b replaced :a
     """
 
+    # TODO enable
+    # scenario "steps can fail the test", ~s"""
+    # Given :a is 1
+    # When fail
+    # Then :a is 66
+    # """
   end
 
   def given_(%{a: 1}, {:a, :is, 1}), do: true
@@ -47,14 +53,16 @@ defmodule Given.ContextTest do
 
   def when_(_, {:delete, key}) when key in [:a], do: [key]
 
-  def then_(%{c: c}, {:c, :equals, expected}), do: assert c == expected
+  def when_(_, {:fail}), do: false
+
+  def then_(%{c: c}, {:c, :equals, expected}), do: assert(c == expected)
 
   def then_(%{a: 1, b: 2}, {:both}), do: true
 
-  def then_(%{a: a}, {:a, :is, expected}), do: assert a == expected
+  def then_(%{a: a}, {:a, :is, expected}), do: assert(a == expected)
 
   def then_(context, {:b, :replaced, :a}) do
-    assert Map.get(context, :b) == 1
     refute Map.has_key?(context, :a)
+    assert Map.get(context, :b) == 1
   end
 end

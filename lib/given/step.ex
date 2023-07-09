@@ -1,5 +1,4 @@
 defmodule Given.Step do
-
   @moduledoc """
   Behaviour that documents the return values of a given, when or then step.
   """
@@ -30,5 +29,4 @@ defmodule Given.Step do
   Normally would not change the context so return an empty list.
   """
   @callback then_(context, step) :: result
-
 end

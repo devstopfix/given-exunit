@@ -12,6 +12,7 @@ defmodule Given.Case do
   ```
 
   """
+  alias Mix.Tasks.Run
 
   defmacro __using__(_) do
     quote do
@@ -29,7 +30,6 @@ defmodule Given.Case do
     end
   end
 
-  # https://github.com/elixir-lang/elixir/blob/999ecf73de9b84f3c0a947401a2ca8459a9dbd1a/lib/ex_unit/lib/ex_unit/case.ex#L344
   defmacro scenario(test_name, prose) do
     %{module: mod, file: file, line: line} = __CALLER__
 
@@ -38,8 +38,6 @@ defmodule Given.Case do
         {:ok, steps} = Given.Parser.parse!(prose, %{file: file, line: line})
         steps
       end
-
-    # prose = unquote(prose)
 
     quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, steps: steps] do
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])
@@ -55,18 +53,27 @@ defmodule Given.Case do
 
   def execute_steps(context, mod, [{step, args} | steps]) do
     result = apply(mod, step, [context, args])
-    new_context = case result do
-      [] ->
-        context
-      [{k, _v} | _ ] when is_atom(k) ->
-        Enum.reduce(result, context, fn {k, v}, acc ->
-          Map.put(acc, k, v)
-        end)
-      [k | _] = ks when is_atom(k) ->
-        Map.drop(context, ks)
-      _ ->
-        context
-    end
+
+    new_context =
+      case result do
+        [] ->
+          context
+
+        [{k, _v} | _] when is_atom(k) ->
+          Enum.reduce(result, context, fn {k, v}, acc ->
+            Map.put(acc, k, v)
+          end)
+
+        [k | _] = ks when is_atom(k) ->
+          Map.drop(context, ks)
+
+        false ->
+          raise RuntimeError, inspect(args)
+
+        _ ->
+          context
+      end
+
     execute_steps(new_context, mod, steps)
   end
 end

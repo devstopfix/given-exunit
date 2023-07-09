@@ -81,4 +81,6 @@ defmodule GivenTest do
   end
 
   def given_(), do: nil
+  def given_("zero"), do: 0
+  def given_(_), do: nil
 end

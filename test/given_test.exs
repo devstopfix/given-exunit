@@ -80,18 +80,5 @@ defmodule GivenTest do
     end
   end
 
-  # scenario "test with prose" do
-  #   ~s"""
-  #    Given some precondition
-  #    And some other precondition
-  #    When some action by the actor
-  #    And some other action
-  #    And yet another action
-  #    Then some testable outcome is achieved
-  #    And something else we can check happens too
-  #   """
-  # end
-
-  defp then(false), do: false
-  defp then(true), do: true
+  def given_(), do: nil
 end

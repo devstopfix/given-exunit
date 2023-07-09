@@ -35,13 +35,11 @@ defmodule Given.Case do
     %{module: mod, file: file, line: line} = __CALLER__
 
     quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, prose: prose] do
-      {:ok, _} = Given.Parser.parse!(prose, %{file: file, line: line})
+      {:ok, [{:given_, _args} | _]} = Given.Parser.parse!(prose, %{file: file, line: line})
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:feature])
 
       def unquote(name)(_) do
-        # expected = unquote(contents)
-        # ExUnit.Assertions.assert({:ok, expected} == eval(unquote(clause)))
-        then(false)
+        apply(unquote(mod), :given_, [])
       end
     end
   end

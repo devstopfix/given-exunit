@@ -7,6 +7,12 @@ defmodule GivenTest do
   # Uncomment to see "Not implemented"
   # scenario "Placeholder"
 
+  # # Uncomment to see error at line 11 (off by one!)
+  # scenario "Fails", ~s"""
+  # Given 0
+  # Bang!
+  # """
+
   # scenario "Given", ~s[Given]
 
   describe "Parse atoms" do
@@ -22,8 +28,6 @@ defmodule GivenTest do
   describe "Parse dates" do
     scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
   end
-
-  # scenario("Fails", ~s[Given 0\nBang])
 
   # scenario "test with prose" do
   #   ~s"""

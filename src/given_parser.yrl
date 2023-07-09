@@ -1,4 +1,4 @@
-Nonterminals scenario clause phrase prefix terms term words.
+Nonterminals scenario clause prefix terms term words.
 Terminals and_ atom date given hexadecimal int then when_ word.
 Rootsymbol scenario.
 

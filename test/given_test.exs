@@ -30,8 +30,15 @@ defmodule GivenTest do
     scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
   end
 
-  describe "Parse sentence" do
-    scenario "Given some precondition", ~s[Given some precondition]
+  describe "Parse givens" do
+    scenario "Given precondition", ~s[Given some precondition]
+
+    scenario "Given And", ~s"Given some precondition And some other precondition"
+
+    scenario "Given And multiline", ~s"""
+    Given some precondition
+    And some other precondition
+    """
   end
 
   # scenario "test with prose" do

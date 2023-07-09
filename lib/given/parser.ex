@@ -1,4 +1,5 @@
 defmodule Given.Parser do
+  @moduledoc false
   alias Given.SyntaxError
 
   def parse(b) when is_binary(b), do: b |> to_charlist() |> parse()

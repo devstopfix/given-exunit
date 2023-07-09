@@ -1,4 +1,5 @@
 defmodule Given.Generators do
+  @moduledoc false
   use PropCheck
 
   def given, do: "Given" |> cases() |> elements()

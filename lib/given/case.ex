@@ -33,19 +33,20 @@ defmodule Given.Case do
   defmacro scenario(test_name, prose) do
     %{module: mod, file: file, line: line} = __CALLER__
 
-    args =
+    steps =
       quote bind_quoted: [prose: prose] do
-        {:ok, [{:given_, args} | _]} = Given.Parser.parse!(prose, %{file: file, line: line})
-        args
+        {:ok, steps} = Given.Parser.parse!(prose, %{file: file, line: line})
+        steps
       end
 
     # prose = unquote(prose)
 
-    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, args: args] do
+    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, steps: steps] do
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])
 
       def unquote(name)(context) do
-        apply(unquote(mod), :given_, [context, unquote(Macro.escape(args))])
+        [{step, args} | _] = unquote(Macro.escape(steps))
+        apply(unquote(mod), step, [context, args])
       end
     end
   end

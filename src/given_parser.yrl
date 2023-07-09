@@ -5,10 +5,10 @@ Rootsymbol scenario.
 % Scenario is a list of clauses
 scenario -> given_clause when_clause then_clause : ['$1', '$2', '$3'].
 
-given_clause -> given_ terms : {extract_token('$1'), '$2'}.
-when_clause  -> when_ terms : {extract_token('$1'), '$2'}.
+given_clause -> given_ terms : {extract_token('$1'), list_to_tuple('$2')}.
+when_clause  -> when_ terms : {extract_token('$1'), list_to_tuple('$2')}.
 when_clause  -> '$empty' : nil.
-then_clause  -> then_ terms : {extract_token('$1'), '$2'}.
+then_clause  -> then_ terms : {extract_token('$1'), list_to_tuple('$2')}.
 then_clause  -> '$empty' : nil.
 
 % Phrase is a list of words

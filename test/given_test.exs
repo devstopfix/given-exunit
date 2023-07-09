@@ -41,6 +41,15 @@ defmodule GivenTest do
     """
   end
 
+  describe "Parse scenarios" do
+    scenario "Given only", ~s[Given precondition]
+
+    scenario "Given when", ~s"""
+    Given precondition
+    When command
+    """
+  end
+
   # scenario "test with prose" do
   #   ~s"""
   #    Given some precondition

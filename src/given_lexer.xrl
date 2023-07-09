@@ -5,10 +5,11 @@ WHEN       = (When|WHEN)
 THEN       = (Then|THEN)
 AND        = (And|AND)
 
+ATOM        = :[a-z_]+
 HEXADECIMAL = 0x[0-9a-fA-F]+
 INT         = -?[0-9]+
-ATOM        = :[a-z_]+
 WHITESPACE  = [\s\t\n\r,\.]
+WORD        = [a-zA-Z]+
 
 D          = [0-9]
 DD         = {D}{D}
@@ -26,6 +27,7 @@ Rules.
 {HEXADECIMAL} : {token, {hexadecimal,  TokenLine, characters_to_binary(TokenChars)}}.
 {THEN}        : {token, {then, TokenLine}}.
 {WHEN}        : {token, {when_, TokenLine}}.
+{WORD}        : {token, {word, TokenLine, characters_to_binary(TokenChars)}}.
 {WHITESPACE}+ : skip_token.
 
 Erlang code.

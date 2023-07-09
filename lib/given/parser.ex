@@ -6,6 +6,7 @@ defmodule Given.Parser do
   def parse(s) do
     with {:ok, tokens, _} <- :given_lexer.string(s),
          {:ok, result} <- :given_parser.parse(tokens) do
+      result = Enum.reject(result, &is_nil/1)
       {:ok, result}
     end
   end

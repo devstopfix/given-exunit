@@ -31,15 +31,21 @@ defmodule Given.Case do
 
   # https://github.com/elixir-lang/elixir/blob/999ecf73de9b84f3c0a947401a2ca8459a9dbd1a/lib/ex_unit/lib/ex_unit/case.ex#L344
   defmacro scenario(test_name, prose) do
-    # TODO add line number to parser error line!
     %{module: mod, file: file, line: line} = __CALLER__
 
-    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, prose: prose] do
-      {:ok, [{:given_, args} | _]} = Given.Parser.parse!(prose, %{file: file, line: line})
-      name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:feature])
+    args =
+      quote bind_quoted: [prose: prose] do
+        {:ok, [{:given_, args} | _]} = Given.Parser.parse!(prose, %{file: file, line: line})
+        args
+      end
 
-      def unquote(name)(_context) do
-        apply(unquote(mod), :given_, unquote(Macro.escape(args)))
+    # prose = unquote(prose)
+
+    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, args: args] do
+      name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])
+
+      def unquote(name)(context) do
+        apply(unquote(mod), :given_, [context, unquote(Macro.escape(args))])
       end
     end
   end

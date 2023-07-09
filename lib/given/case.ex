@@ -45,9 +45,16 @@ defmodule Given.Case do
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])
 
       def unquote(name)(context) do
-        [{step, args} | _] = unquote(Macro.escape(steps))
-        apply(unquote(mod), step, [context, args])
+        steps = unquote(Macro.escape(steps))
+        Given.Case.execute_steps(context, unquote(mod), steps)
       end
     end
+  end
+
+  def execute_steps(context, _mod, []), do: context
+
+  def execute_steps(context, mod, [{step, args} | steps]) do
+    apply(mod, step, [context, args])
+    execute_steps(context, mod, steps)
   end
 end

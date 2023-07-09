@@ -82,4 +82,6 @@ defmodule Given.ParserTest do
 
   def given_(_, "zero"), do: 0
   def given_(_, _), do: nil
+  def when_(_, _), do: nil
+  def then_(_, _), do: nil
 end

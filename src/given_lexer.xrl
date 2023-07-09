@@ -5,9 +5,10 @@ WHEN       = (When|WHEN)
 THEN       = (Then|THEN)
 AND        = (And|AND)
 
-INT        = -?[0-9]+
-ATOM       = :[a-z_]+
-WHITESPACE = [\s\t\n\r,\.]
+HEXADECIMAL = 0x[0-9a-fA-F]+
+INT         = -?[0-9]+
+ATOM        = :[a-z_]+
+WHITESPACE  = [\s\t\n\r,\.]
 
 D          = [0-9]
 DD         = {D}{D}
@@ -22,6 +23,7 @@ Rules.
 {DATE}        : {token, {date, TokenLine, characters_to_binary(TokenChars)}}.
 {GIVEN}       : {token, {given, TokenLine}}.
 {INT}         : {token, {int,  TokenLine, list_to_integer(TokenChars)}}.
+{HEXADECIMAL} : {token, {hexadecimal,  TokenLine, characters_to_binary(TokenChars)}}.
 {THEN}        : {token, {then, TokenLine}}.
 {WHEN}        : {token, {when_, TokenLine}}.
 {WHITESPACE}+ : skip_token.

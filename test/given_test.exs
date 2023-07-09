@@ -23,6 +23,7 @@ defmodule GivenTest do
     scenario "Given zero", ~s[Given 0]
     scenario "Given integer", ~s[Given 1]
     scenario "Given negative integer", ~s[Given -1]
+    # scenario "Given hexadecimal", ~s[Given 0xFF]
   end
 
   describe "Parse dates" do

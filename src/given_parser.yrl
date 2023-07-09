@@ -1,5 +1,5 @@
 Nonterminals scenario given_clause when_clause then_clause terms term words.
-Terminals atom date given_ hexadecimal int then_ when_ word.
+Terminals atom date given_ hexadecimal int string then_ when_ word.
 Rootsymbol scenario.
 
 % Scenario is a list of clauses
@@ -25,6 +25,7 @@ term -> atom        : extract_value('$1').
 term -> date        : extract_date('$1').
 term -> hexadecimal : extract_hexadecimal('$1').
 term -> int         : extract_value('$1').
+term -> string      : extract_value('$1').
 term -> words       : extract_words_as_atom('$1').
 
 % prefix -> and_   : extract_prefix('$1').

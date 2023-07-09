@@ -22,6 +22,10 @@ defmodule Given.ParserTest do
     scenario "Given atom", ~s[Given :a When to string Then a]
   end
 
+  describe "Parse dates" do
+    scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
+  end
+
   describe "Parse numbers" do
     scenario "Given zero", ~s[Given 0]
     scenario "Given integer", ~s[Given 1]
@@ -29,8 +33,10 @@ defmodule Given.ParserTest do
     scenario "Given hexadecimal", ~s[Given 0xFF]
   end
 
-  describe "Parse dates" do
-    scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
+  describe "Parse strings" do
+    scenario "Given double quoted string", ~s"""
+    Given vessel "Nautilus" commanded by "Captain Nemo"
+    """
   end
 
   describe "Parse givens" do

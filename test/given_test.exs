@@ -10,18 +10,20 @@ defmodule GivenTest do
   # scenario "Given", ~s[Given]
 
   describe "Parse atoms" do
-    scenario("Given atom", ~s[Given :a])
+    scenario "Given atom", ~s[Given :a]
   end
 
   describe "Parse numbers" do
-    scenario("Given zero", ~s[Given 0])
-    scenario("Given integer", ~s[Given 1])
-    scenario("Given negative integer", ~s[Given -1])
+    scenario "Given zero", ~s[Given 0]
+    scenario "Given integer", ~s[Given 1]
+    scenario "Given negative integer", ~s[Given -1]
   end
 
   describe "Parse dates" do
-    scenario("Given ISO 8601 date", ~s[Given 2014-09-18])
+    scenario "Given ISO 8601 date", ~s[Given 2014-09-18]
   end
+
+  # scenario("Fails", ~s[Given 0\nBang])
 
   # scenario "test with prose" do
   #   ~s"""

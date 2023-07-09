@@ -41,28 +41,28 @@ defmodule Given.ContextTest do
     # """
   end
 
-  def given_(%{a: 1}, {:a, :is, 1}), do: true
+  def given_({:a, :is, 1}, %{a: 1}), do: true
 
-  def given_(_, {:b, :is, n}), do: [b: n]
+  def given_({:b, :is, n}, _), do: [b: n]
 
-  def when_(%{a: a, b: b}, {:c, :equals, :a, :plus, :b}), do: [c: a + b]
+  def when_({:c, :equals, :a, :plus, :b}, %{a: a, b: b}), do: [c: a + b]
 
-  def when_(%{a: 1}, {:b, :is, n}), do: [b: n]
+  def when_({:b, :is, n}, %{a: 1}), do: [b: n]
 
-  def when_(_, {:nop}), do: []
+  def when_({:nop}, _), do: []
 
-  def when_(_, {:delete, key}) when key in [:a], do: [key]
+  def when_({:delete, key}, _) when key in [:a], do: [key]
 
-  def when_(_, {:fail}), do: false
+  def when_({:fail}, _), do: false
 
-  def then_(%{c: c}, {:c, :equals, expected}), do: assert(c == expected)
+  def then_({:c, :equals, expected}, %{c: c}), do: assert(c == expected)
 
-  def then_(%{a: 1, b: 2}, {:both}), do: true
+  def then_({:both}, %{a: 1, b: 2}), do: true
 
-  def then_(%{a: a}, {:a, :is, expected}), do: assert(a == expected)
+  def then_({:a, :is, expected}, %{a: a}), do: assert(a == expected)
 
-  def then_(context, {:b, :replaced, :a}) do
+  def then_({:b, :replaced, :a}, %{b: 1} = context) do
     refute Map.has_key?(context, :a)
-    assert Map.get(context, :b) == 1
+    true
   end
 end

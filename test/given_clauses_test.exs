@@ -14,7 +14,7 @@ defmodule Given.ClausesTest do
     """
   end
 
-  def given_(%{a: 1}, {:a, :is, 1}), do: true
-  def when_(%{a: 1}, {:a, :is_incremented}), do: true
-  def then_(%{a: 1}, {:a, :is, 2}), do: true
+  def given_({:a, :is, 1}, %{a: 1}), do: true
+  def when_({:a, :is_incremented}, %{a: 1}), do: true
+  def then_({:a, :is, 2}, %{a: 1}), do: true
 end

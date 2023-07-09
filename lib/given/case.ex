@@ -12,7 +12,6 @@ defmodule Given.Case do
   ```
 
   """
-  alias Mix.Tasks.Run
 
   defmacro __using__(_) do
     quote do
@@ -52,7 +51,7 @@ defmodule Given.Case do
   def execute_steps(context, _mod, []), do: context
 
   def execute_steps(context, mod, [{step, args} | steps]) do
-    result = apply(mod, step, [context, args])
+    result = apply(mod, step, [args, context])
 
     new_context =
       case result do

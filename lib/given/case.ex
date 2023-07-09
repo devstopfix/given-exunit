@@ -55,6 +55,9 @@ defmodule Given.Case do
 
     new_context =
       case result do
+        true ->
+          context
+
         [] ->
           context
 

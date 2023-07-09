@@ -9,12 +9,13 @@ defmodule Given.Step do
   @typedoc """
   Return of each step has the following effect on the context:
   * empty list - no effect
-  * keyword list - put the items into the context
-  * list of atoms - remove the given keys from the context
   * false - fail with a RuntimeError
+  * list of atoms - remove the given keys from the context
+  * keyword list - put the items into the context
   * other - context is not changed
+  * true - context is not changed
   """
-  @type result :: Keyword.t() | map | [atom] | false
+  @type result :: Keyword.t() | map | [atom] | false | true
 
   @typedoc "Tuple representing the parsed clause"
   @type step :: tuple
@@ -40,5 +41,5 @@ defmodule Given.Step do
 
   Normally would not change the context so return an empty list.
   """
-  @callback then_(step, context) :: result
+  @callback then_(step, context) :: boolean
 end

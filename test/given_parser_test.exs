@@ -1,4 +1,4 @@
-defmodule GivenTest do
+defmodule Given.ParserTest do
   use ExUnit.Case
   use Given.Case
 

@@ -78,6 +78,15 @@ defmodule Given.ParserTest do
     And command
     Then postcondition
     """
+
+    scenario "Given & When & Then &", ~s"""
+    Given precondition
+    And precondition
+    When command
+    And command
+    Then postcondition
+    And then
+    """
   end
 
   describe "Invalid scenarios" do

@@ -1,17 +1,28 @@
 Nonterminals 
-scenario 
 and_given_clauses and_given 
+and_then_clauses and_then 
 and_when_clauses and_when 
 given_clauses given_clause 
-when_clauses when_clause 
-then_clause 
+scenario 
 terms term 
+then_clauses then_clause 
+when_clauses when_clause 
 words.
-Terminals and_ atom date given_ hexadecimal int string then_ when_ word.
+Terminals 
+and_ 
+atom 
+date 
+given_ 
+hexadecimal 
+int 
+string 
+then_ 
+when_ 
+word.
 Rootsymbol scenario.
 
 % Scenario is a list of clauses
-scenario -> given_clauses when_clauses then_clause : '$1' ++ '$2' ++ '$3'.
+scenario -> given_clauses when_clauses then_clauses : '$1' ++ '$2' ++ '$3'.
 
 % Given
 given_clauses -> given_clause : ['$1'].
@@ -34,8 +45,17 @@ and_when_clauses -> and_when : ['$1'].
 and_when_clauses -> and_when and_when_clauses: ['$1'].
 and_when -> and_ terms : {when_, list_to_tuple('$2')}.
 
-then_clause  -> then_ terms : [{extract_token('$1'), list_to_tuple('$2')}].
-then_clause  -> '$empty' : [].
+% Then
+then_clauses -> then_clause : ['$1'].
+then_clauses -> then_clause and_then_clauses : ['$1'|'$2'].
+then_clauses -> '$empty' : [].
+then_clause -> then_ terms : {then_, list_to_tuple('$2')}.
+
+% Then And
+and_then_clauses -> and_then : ['$1'].
+and_then_clauses -> and_then and_then_clauses: ['$1'].
+and_then -> and_ terms : {then_, list_to_tuple('$2')}.
+
 
 % Phrase is a list of words
 words -> word : ['$1'].
@@ -54,8 +74,6 @@ term -> words       : extract_words_as_atom('$1').
 
 
 Erlang code.
-
-extract_token({Token, _Line}) -> Token.
 
 extract_value({_Token, _Line, Value}) -> Value.
 

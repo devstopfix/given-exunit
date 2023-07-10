@@ -14,5 +14,4 @@ defmodule Given.StringTest do
 
   def given_({"Nautilus"}, _), do: true
   def given_({:vessel, "Nautilus", :commanded_by, "Captain Nemo"}, _), do: true
-
 end

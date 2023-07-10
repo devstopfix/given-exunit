@@ -42,12 +42,12 @@ defmodule Given.ParserTest do
   describe "Parse givens" do
     scenario "Given precondition", ~s[Given some precondition]
 
-    # scenario "Given And", ~s"Given some precondition And some other precondition"
+    scenario "Given And", ~s"Given some precondition And some other precondition"
 
-    # scenario "Given And multiline", ~s"""
-    # Given some precondition
-    # And some other precondition
-    # """
+    scenario "Given And multiline", ~s"""
+    Given some precondition
+    And some other precondition
+    """
   end
 
   describe "Parse scenarios" do

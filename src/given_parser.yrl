@@ -1,9 +1,17 @@
-Nonterminals scenario and_given_clauses and_given given_clauses given_clause when_clause then_clause terms term words.
+Nonterminals 
+scenario 
+and_given_clauses and_given 
+and_when_clauses and_when 
+given_clauses given_clause 
+when_clauses when_clause 
+then_clause 
+terms term 
+words.
 Terminals and_ atom date given_ hexadecimal int string then_ when_ word.
 Rootsymbol scenario.
 
 % Scenario is a list of clauses
-scenario -> given_clauses when_clause then_clause : '$1' ++ '$2' ++ '$3'.
+scenario -> given_clauses when_clauses then_clause : '$1' ++ '$2' ++ '$3'.
 
 given_clauses -> given_clause : ['$1'].
 given_clauses -> given_clause and_given_clauses : ['$1'|'$2'].
@@ -13,8 +21,15 @@ and_given_clauses -> and_given : ['$1'].
 and_given_clauses -> and_given and_given_clauses: ['$1'].
 and_given -> and_ terms : {given_, list_to_tuple('$2')}.
 
-when_clause  -> when_ terms : [{extract_token('$1'), list_to_tuple('$2')}].
-when_clause  -> '$empty' : [].
+when_clauses -> when_clause : ['$1'].
+when_clauses -> when_clause and_when_clauses : ['$1'|'$2'].
+when_clauses -> '$empty' : [].
+when_clause -> when_ terms : {when_, list_to_tuple('$2')}.
+
+and_when_clauses -> and_when : ['$1'].
+and_when_clauses -> and_when and_when_clauses: ['$1'].
+and_when -> and_ terms : {when_, list_to_tuple('$2')}.
+
 then_clause  -> then_ terms : [{extract_token('$1'), list_to_tuple('$2')}].
 then_clause  -> '$empty' : [].
 

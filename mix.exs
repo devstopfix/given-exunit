@@ -4,7 +4,7 @@ defmodule Given.MixProject do
   def project do
     [
       app: :given,
-      version: "0.22.8",
+      version: "0.22.9",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,

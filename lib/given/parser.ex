@@ -5,9 +5,8 @@ defmodule Given.Parser do
   def parse(b) when is_binary(b), do: b |> to_charlist() |> parse()
 
   def parse(s) do
-    with {:ok, tokens, _} <- :given_lexer.string(s),
-         {:ok, result} <- :given_parser.parse(tokens) do
-      {:ok, result}
+    with {:ok, tokens, _} <- :given_lexer.string(s) do
+      :given_parser.parse(tokens)
     end
   end
 

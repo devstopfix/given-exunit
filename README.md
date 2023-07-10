@@ -11,6 +11,7 @@ but they do not seem to be maintained. The advantages of Given are:
 2. pattern match errors are clear and obvious
 3. line numbers in errors are accurate as there are no separate text files
 
+[![CI](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml)
 
 ## Installation
 

@@ -14,8 +14,9 @@ atom
 date 
 given_ 
 hexadecimal 
-int 
-string 
+int
+range
+string
 then_ 
 when_ 
 word.
@@ -69,6 +70,7 @@ term -> atom        : extract_value('$1').
 term -> date        : extract_date('$1').
 term -> hexadecimal : extract_hexadecimal('$1').
 term -> int         : extract_value('$1').
+term -> range       : extract_value('$1').
 term -> string      : extract_value('$1').
 term -> words       : extract_words_as_atom('$1').
 

@@ -75,6 +75,10 @@ defmodule Given.Case do
         :error ->
           raise RuntimeError, "Step #{inspect(step)} with #{inspect(args)}"
 
+        {:error, error} ->
+          raise RuntimeError,
+                "Step #{inspect(step)} with #{inspect(args)} returned #{inspect(error)}"
+
         _ ->
           context
       end

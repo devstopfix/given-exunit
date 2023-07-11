@@ -3,11 +3,16 @@ defmodule Given.StepErrorTest do
   use Given.Case
 
   describe "Errors" do
-    # TODO tag and do not run
+    # # TODO tag and do not run
     # scenario "error atom", ~s"""
     # Given bang
+    # """
+
+    # scenario "error tuple", ~s"""
+    # Given bangbang
     # """
   end
 
   # def given_({:bang}, _), do: :error
+  # def given_({:bangbang}, _), do: {:error, :bang}
 end

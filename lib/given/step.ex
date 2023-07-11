@@ -1,6 +1,6 @@
 defmodule Given.Step do
   @moduledoc """
-  Behaviour that documents the return values of a given, when or then step.
+  Behaviour that documents the return values of a Given, When or Then step.
   """
 
   @typedoc "ExUnit test case context"
@@ -27,6 +27,8 @@ defmodule Given.Step do
 
   Normally returns a keyword list of one or more values to be
   appended to the context for future steps.
+
+  Note the trailing underscore to be consistent with `when_`.
   """
   @callback given_(step, context) :: result
 
@@ -35,6 +37,8 @@ defmodule Given.Step do
 
   Normally returns a keyword list of one or more values to be
   appended to the context for future steps.
+
+  `when` is a reserved keyword in Elixir and so we use `when_`.
   """
   @callback when_(step, context) :: result
 
@@ -42,6 +46,7 @@ defmodule Given.Step do
   Run assertions on the context.
 
   Normally would not change the context so return an empty list.
+  Note the trailing underscore to be consistent with `when_`.
   """
   @callback then_(step, context) :: result
 end

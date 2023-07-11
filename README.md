@@ -43,10 +43,10 @@ defmodule Given.ReadmeTest do
 end
 ```
 
-The full syntax will soon be documented in the [Given Docs](https://hexdocs.pm/given_exunit).
-
 NOTE for now we only allow latin a-z letters outside of strings - for no other
 reason than I have not discovered the Erlang regex for any alphabetic character.
+
+For the full syntax see the [Given Docs][docs] and the [Parser](lib/given/parser.ex).
 
 [![CI](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml)
 
@@ -60,5 +60,6 @@ def deps do
 end
 ```
 
+[docs]: https://hexdocs.pm/given_exunit
 [ex]: https://elixir-lang.org
 [gwt]: https://martinfowler.com/bliki/GivenWhenThen.html

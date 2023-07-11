@@ -2,6 +2,9 @@ defmodule Given.Parser do
   @moduledoc false
   alias Given.SyntaxError
 
+  @type input :: binary | list
+
+  @spec parse(input) :: {:ok, Keyword.t()} | {:error, term} | {:error, term, pos_integer}
   def parse(b) when is_binary(b), do: b |> to_charlist() |> parse()
 
   def parse(s) do
@@ -10,6 +13,7 @@ defmodule Given.Parser do
     end
   end
 
+  @spec parse!(input, map) :: {:ok, Keyword.t()} | no_return
   def parse!(prose, %{file: file, line: line}) do
     case parse(prose) do
       {:ok, result} ->

@@ -17,6 +17,14 @@ defmodule Given.Generators do
     end
   end
 
+  def iso8601_time do
+    let {hh, mn, ss} <- {hour(), minute_second(), minute_second()} do
+      "~2..0b:~2..0b:~2..0b"
+      |> :io_lib.format([hh, mn, ss])
+      |> to_string()
+    end
+  end
+
   defp year, do: integer(1900, 2030)
 
   defp month_day, do: elements([month_28(), month_30(), month_31()])
@@ -38,6 +46,10 @@ defmodule Given.Generators do
       {m, d}
     end
   end
+
+  defp hour, do: integer(0, 23)
+
+  defp minute_second, do: integer(0, 59)
 
   defp cases(s), do: [s, String.upcase(s)]
 end

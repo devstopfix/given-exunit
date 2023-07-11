@@ -18,5 +18,5 @@ defmodule Given.ReadmeTest do
   def when_({:graphemes}, %{str: s}), do: [gs: String.graphemes(s)]
   def when_({:frequencies}, %{gs: gs}), do: [freq: Enum.frequencies(gs)]
   # Post-conditions
-  def then_({l, :occurs, n, _}, %{freq: freq}), do: assert n == freq[l]
+  def then_({l, :occurs, n, _}, %{freq: freq}), do: assert(n == freq[l])
 end

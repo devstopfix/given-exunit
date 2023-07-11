@@ -1,4 +1,4 @@
-# Given
+# Given ExUnit
 
 Given-When-Then is a style of representing tests of specifying a system's
 behaviour using specification by example - [Martin Fowler][gwt].
@@ -11,6 +11,8 @@ but they do not seem to be maintained. The advantages of Given are:
 2. pattern match errors are clear and obvious
 3. line numbers in errors are accurate as there are no separate text files
 
+The full syntax will soon be documented in the [Given Docs](https://hexdocs.pm/given_exunit).
+
 [![CI](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml)
 
 ## Installation
@@ -18,7 +20,7 @@ but they do not seem to be maintained. The advantages of Given are:
 ```elixir
 def deps do
   [
-    {:given, "~> 0.22"}
+    {:given, "~> 1.22"}
   ]
 end
 ```

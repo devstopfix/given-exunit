@@ -72,6 +72,9 @@ defmodule Given.Case do
         false ->
           raise RuntimeError, inspect(args)
 
+        :error ->
+          raise RuntimeError, "Step #{inspect(step)} with #{inspect(args)}"
+
         _ ->
           context
       end

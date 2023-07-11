@@ -5,8 +5,8 @@ defmodule Given.Generators do
   import Given.DateTimeGenerators
 
   def scenario do
-    let {root, thens} <- {given_clauses(), then_clauses()} do
-      [root | thens]
+    let {given, whens, thens} <- {given_clauses(), when_clauses(), then_clauses()} do
+      [given | [whens | thens]]
       |> List.flatten()
       |> Enum.join()
     end
@@ -25,6 +25,13 @@ defmodule Given.Generators do
     end
   end
 
+  def when_clauses do
+    let {lf1, prefix, terms, lf2, ands} <-
+          {clause_separator(), when_(), terms(), clause_separator(), and_clauses()} do
+      [lf1, prefix, terms, lf2 | ands]
+    end
+  end
+
   def and_clauses do
     let n <- elements([exactly(0), integer(0, 3)]) do
       let clauses <- vector(n, and_clause()) do
@@ -39,7 +46,12 @@ defmodule Given.Generators do
     end
   end
 
-  def clause_separator, do: elements([" ", "\t", "\n"])
+  def clause_separator, do: weighted_union([
+    {75, exactly(" ")},
+    {20, exactly("\n")},
+    {5, exactly("\t")}
+  ])
+
   def whitespace, do: elements([" "])
 
   def given, do: "Given" |> cases() |> elements()

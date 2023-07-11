@@ -46,11 +46,13 @@ defmodule Given.Generators do
     end
   end
 
-  def clause_separator, do: weighted_union([
-    {75, exactly(" ")},
-    {20, exactly("\n")},
-    {5, exactly("\t")}
-  ])
+  def clause_separator,
+    do:
+      weighted_union([
+        {75, exactly(" ")},
+        {20, exactly("\n")},
+        {5, exactly("\t")}
+      ])
 
   def whitespace, do: elements([" "])
 
@@ -68,6 +70,7 @@ defmodule Given.Generators do
         iso8601_date(),
         iso8601_time(),
         hex_string(),
+        double_quoted_string(),
         word(),
         atom_()
       ])
@@ -98,6 +101,14 @@ defmodule Given.Generators do
       let digits <- vector(n, hex_digit()) do
         to_string([?0, ?x | digits])
       end
+    end
+  end
+
+  def double_quoted_string do
+    str = such_that(s <- utf8(8, 3), when: !String.contains?(s, "\""))
+
+    let s <- str do
+      to_string([?", s, ?"])
     end
   end
 

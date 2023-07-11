@@ -1,7 +1,7 @@
 defmodule Given.GeneratorsTest do
   use ExUnit.Case
   use PropCheck
-  alias Given.Generators, as: Gen
+  alias Given.DateTimeGenerators, as: Gen
 
   property "ISO 8601 dates" do
     forall d <- Gen.iso8601_date() do

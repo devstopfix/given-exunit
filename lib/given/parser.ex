@@ -25,8 +25,9 @@ defmodule Given.Parser do
 
   Not currently supported but planned:
   * atoms with extended alphabet
-  * floats
   * date times
+  * floats
+  * lists
   * time locale
   * words using any alphabet
 

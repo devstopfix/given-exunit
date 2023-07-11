@@ -20,13 +20,14 @@ defmodule Given.Parser do
   * integer - positive and negative base 10 without separators
   * range - a dashed pair of positive integers e.g. `1-6` becomes `1..6`
   * string - any unicode chars within double quotes (no escaping of quotes)
+  * time - ISO-8601 in the format `HH:MM:SS` becomes `Time`
   * words - only using the Roman alphabet (temporary restriction!)
 
   Not currently supported but planned:
   * atoms with extended alphabet
   * floats
   * date times
-  * times
+  * time locale
   * words using any alphabet
 
   Any consecutive words will be collapsed into a single atom. For example

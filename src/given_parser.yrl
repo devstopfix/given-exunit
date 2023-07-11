@@ -17,7 +17,8 @@ hexadecimal
 int
 range
 string
-then_ 
+then_
+time 
 when_ 
 word.
 Rootsymbol scenario.
@@ -72,6 +73,7 @@ term -> hexadecimal : extract_hexadecimal('$1').
 term -> int         : extract_value('$1').
 term -> range       : extract_value('$1').
 term -> string      : extract_value('$1').
+term -> time        : extract_time('$1').
 term -> words       : extract_words_as_atom('$1').
 
 
@@ -83,6 +85,8 @@ extract_date({_Token, _Line, Value}) -> apply('Elixir.Date', 'from_iso8601!', [V
 
 extract_hexadecimal({_Token, _Line, <<"0x", Value/binary>>}) -> 
     {N, <<>>} = apply('Elixir.Integer', 'parse', [Value, 16]), N.
+
+extract_time({_Token, _Line, Value}) -> apply('Elixir.Time', 'from_iso8601!', [Value]).
 
 extract_words_as_atom([{_T, _L, H}| T]) -> 
     Words = lists:foldl(fun ({_, _, Value}, Acc) -> <<Acc/binary, "_", Value/binary>> end, H, T),

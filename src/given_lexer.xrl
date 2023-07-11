@@ -25,6 +25,7 @@ Rules.
 {AND}             : {token, {and_, TokenLine}}.
 {ATOM}            : {token, {atom, TokenLine, to_atom(TokenChars)}}.
 {DATE}            : {token, {date, TokenLine, characters_to_binary(TokenChars)}}.
+{TIME}            : {token, {time, TokenLine, characters_to_binary(TokenChars)}}.
 {GIVEN}           : {token, {given_, TokenLine}}.
 {POS}-{POS}       : {token, {range, TokenLine, to_range(TokenChars)}}.
 {INT}             : {token, {int,  TokenLine, list_to_integer(TokenChars)}}.

@@ -4,10 +4,9 @@ defmodule Given.MixProject do
   def project do
     [
       app: :given_exunit,
-      version: "1.22.191",
+      description: "Feature testing extension for ExUnit",
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
-      start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: [
         licenses: ["MIT"],
@@ -15,7 +14,9 @@ defmodule Given.MixProject do
           "GitHub" => "https://github.com/devstopfix/given-exunit"
         }
       ],
-      source_url: "https://github.com/devstopfix/given-exunit"
+      source_url: "https://github.com/devstopfix/given-exunit",
+      start_permanent: Mix.env() == :prod,
+      version: "1.22.191"
     ]
   end
 

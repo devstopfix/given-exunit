@@ -5,8 +5,6 @@ defmodule Given.ParserTest do
   import Given.Parser, only: [parse!: 2]
   alias Given.SyntaxError
 
-  # feature "first"
-
   # Uncomment to see "Not implemented"
   # scenario "Placeholder"
 

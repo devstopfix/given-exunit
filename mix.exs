@@ -3,12 +3,19 @@ defmodule Given.MixProject do
 
   def project do
     [
-      app: :given,
-      version: "0.22.191",
+      app: :given_exunit,
+      version: "1.22.191",
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: [
+        licenses: ["MIT"],
+        links: %{
+          "GitHub" => "https://github.com/devstopfix/given-exunit"
+        }
+      ],
+      source_url: "https://github.com/devstopfix/given-exunit"
     ]
   end
 
@@ -21,6 +28,7 @@ defmodule Given.MixProject do
   defp deps do
     [
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:propcheck, "~> 1.4", only: [:test, :dev]}
     ]
   end

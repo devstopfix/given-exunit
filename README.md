@@ -1,4 +1,4 @@
-# Given
+# Given ExUnit
 
 Given-When-Then is a style of representing tests of specifying a system's
 behaviour using specification by example - [Martin Fowler][gwt].
@@ -18,7 +18,7 @@ but they do not seem to be maintained. The advantages of Given are:
 ```elixir
 def deps do
   [
-    {:given, "~> 0.22"}
+    {:given, "~> 1.22"}
   ]
 end
 ```

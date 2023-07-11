@@ -5,16 +5,23 @@ defmodule Given.Generators do
   import Given.DateTimeGenerators
 
   def scenario do
-    let {root, ands} <- {given_clause(), and_clauses()} do
-      [root | ands]
+    let {root, thens} <- {given_clauses(), then_clauses()} do
+      [root | thens]
       |> List.flatten()
       |> Enum.join()
     end
   end
 
-  def given_clause do
-    let {prefix, terms, lf} <- {given(), terms(), clause_separator()} do
-      [prefix, terms, lf]
+  def given_clauses do
+    let {prefix, terms, lf, ands} <- {given(), terms(), clause_separator(), and_clauses()} do
+      [prefix, terms, lf | ands]
+    end
+  end
+
+  def then_clauses do
+    let {lf1, prefix, terms, lf2, ands} <-
+          {clause_separator(), then_(), terms(), clause_separator(), and_clauses()} do
+      [lf1, prefix, terms, lf2 | ands]
     end
   end
 

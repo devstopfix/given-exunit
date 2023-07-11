@@ -2,42 +2,123 @@ defmodule Given.Generators do
   @moduledoc false
   use PropCheck
 
+  import Given.DateTimeGenerators
+
+  def scenario do
+    let {given, whens, thens} <- {given_clauses(), when_clauses(), then_clauses()} do
+      [given | [whens | thens]]
+      |> List.flatten()
+      |> Enum.join()
+    end
+  end
+
+  def given_clauses do
+    let {prefix, terms, lf, ands} <- {given(), terms(), clause_separator(), and_clauses()} do
+      [prefix, terms, lf | ands]
+    end
+  end
+
+  def then_clauses do
+    let {lf1, prefix, terms, lf2, ands} <-
+          {clause_separator(), then_(), terms(), clause_separator(), and_clauses()} do
+      [lf1, prefix, terms, lf2 | ands]
+    end
+  end
+
+  def when_clauses do
+    let {lf1, prefix, terms, lf2, ands} <-
+          {clause_separator(), when_(), terms(), clause_separator(), and_clauses()} do
+      [lf1, prefix, terms, lf2 | ands]
+    end
+  end
+
+  def and_clauses do
+    let n <- elements([exactly(0), integer(0, 3)]) do
+      let clauses <- vector(n, and_clause()) do
+        clauses
+      end
+    end
+  end
+
+  def and_clause do
+    let {prefix, terms, lf} <- {and_(), terms(), clause_separator()} do
+      [prefix, terms, lf]
+    end
+  end
+
+  def clause_separator,
+    do:
+      weighted_union([
+        {75, exactly(" ")},
+        {20, exactly("\n")},
+        {5, exactly("\t")}
+      ])
+
+  def whitespace, do: elements([" "])
+
   def given, do: "Given" |> cases() |> elements()
   def when_, do: "When" |> cases() |> elements()
   def then_, do: "Then" |> cases() |> elements()
   def and_, do: "And" |> cases() |> elements()
 
-  def term, do: elements([integer(), iso8601_date()])
+  def any_term,
+    do:
+      elements([
+        pos_integer(),
+        neg_integer(),
+        integer(),
+        iso8601_date(),
+        iso8601_time(),
+        hex_string(),
+        double_quoted_string(),
+        word(),
+        atom_()
+      ])
 
-  def iso8601_date do
-    let {y, {m, d}} <- {year(), month_day()} do
-      "~4..0b-~2..0b-~2..0b"
-      |> :io_lib.format([y, m, d])
-      |> to_string()
+  def pad_term do
+    let {ws, trm} <- {whitespace(), any_term()} do
+      [ws, trm]
     end
   end
 
-  defp year, do: integer(1900, 2030)
-
-  defp month_day, do: elements([month_28(), month_30(), month_31()])
-
-  defp month_28 do
-    let d <- integer(1, 28) do
-      {exactly(2), d}
+  def terms do
+    let n <- integer(1, 5) do
+      let terms <- vector(n, pad_term()) do
+        terms
+      end
     end
   end
 
-  defp month_30 do
-    let {m, d} <- {elements([4, 6, 9, 11]), integer(1, 30)} do
-      {m, d}
+  def hex_digit,
+    do:
+      elements([
+        elements(Enum.to_list(?0..?9) ++ Enum.to_list(?a..?f)),
+        elements(Enum.to_list(?0..?9) ++ Enum.to_list(?A..?F))
+      ])
+
+  def hex_string do
+    let n <- integer(1, 8) do
+      let digits <- vector(n, hex_digit()) do
+        to_string([?0, ?x | digits])
+      end
     end
   end
 
-  defp month_31 do
-    let {m, d} <- {elements([1, 3, 5, 7, 8, 10, 12]), integer(1, 31)} do
-      {m, d}
+  def double_quoted_string do
+    str = such_that(s <- utf8(8, 3), when: !String.contains?(s, "\""))
+
+    let s <- str do
+      to_string([?", s, ?"])
     end
   end
+
+  def atom_ do
+    let a <- elements(~w[a bb ccc ddd]a) do
+      inspect(a)
+    end
+  end
+
+  def word, do: elements(~w[and or not xor])
 
   defp cases(s), do: [s, String.upcase(s)]
 end

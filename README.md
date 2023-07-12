@@ -43,10 +43,8 @@ defmodule Given.ReadmeTest do
 end
 ```
 
-NOTE for now we only allow latin a-z letters outside of strings - for no other
-reason than I have not discovered the Erlang regex for any alphabetic character.
-
-For the full syntax see the [Given Docs][docs] and the [Parser](lib/given/parser.ex).
+See the [Case module][case] for the syntax of the scenarios and 
+the [Parser module][parser] contains the terms that can be used.
 
 [![CI](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/devstopfix/given-exunit/actions/workflows/ci.yml)
 
@@ -60,6 +58,8 @@ def deps do
 end
 ```
 
+[case]: https://hexdocs.pm/given_exunit/Given.Case.html
+[parser]: https://hexdocs.pm/given_exunit/Given.Parser.html
 [docs]: https://hexdocs.pm/given_exunit
 [ex]: https://elixir-lang.org
 [gwt]: https://martinfowler.com/bliki/GivenWhenThen.html

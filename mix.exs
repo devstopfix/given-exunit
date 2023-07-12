@@ -11,6 +11,7 @@ defmodule Given.MixProject do
       package: [
         licenses: ["MIT"],
         links: %{
+          "Docs" => "https://hexdocs.pm/given_exunit/Given.Case.html",
           "GitHub" => "https://github.com/devstopfix/given-exunit"
         }
       ],

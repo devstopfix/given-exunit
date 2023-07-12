@@ -64,7 +64,7 @@ defmodule Given.Parser do
   Intended for internal use - expects the `__CALLER__` struct to be supplied
   and fails fast by raising an error.
   """
-  @spec parse!(input, map) :: {:ok, Keyword.t()} | no_return
+  @spec parse!(input, Macro.Env.t()) :: {:ok, Keyword.t()} | no_return
   def parse!(prose, %{file: file, line: line}) do
     case parse(prose) do
       {:ok, result} ->

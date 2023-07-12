@@ -55,6 +55,49 @@ defmodule Given.Case do
   end
   ```
 
+  Once the scenario is written you must implement the `Given.Step` callbacks
+  that match the parsed terms:
+
+  ```elixir
+  describe "elixir-lang.org" do
+    scenario "peek", ~s""
+    Given the string "Elixir"
+    When graphemes
+    And frequencies
+    Then "i" occurs 2 times
+    And "E" occurs 1 time
+    ""
+  end
+
+  # Pre-conditions
+  def given_({:the_string, s}, _), do: [str: s]
+  # Actions
+  def when_({:graphemes}, %{str: s}), do: [gs: String.graphemes(s)]
+  def when_({:frequencies}, %{gs: gs}), do: [freq: Enum.frequencies(gs)]
+  # Post-conditions
+  def then_({l, :occurs, n, _}, %{freq: freq}), do: assert n == freq[l]
+  ```
+
+  A pre-condition may return a keyword list of values that are appended to
+  the context and passed from clause to clause. `ExUnit.Assertions` can be
+  used as normal in the post-conditions.
+
+  You may setup a test context as normal:
+
+  ```elixir
+  setup [:setup_a]
+
+  scenario "addition", ~s""
+  Given :a
+  Then :a is 1
+  ""
+
+  def given_(_, _), do: true
+  def then_({_, :is, x}, %{a: a}), do: assert a == x
+
+  def setup_a(_context) do
+    [a: 1]
+  end
   """
 
   @doc false

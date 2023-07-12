@@ -53,7 +53,7 @@ the [Parser module][parser] contains the terms that can be used.
 ```elixir
 def deps do
   [
-    {:given, "~> 1.22"}
+    {:given, "~> 1.22", only: [:test, :dev]}
   ]
 end
 ```

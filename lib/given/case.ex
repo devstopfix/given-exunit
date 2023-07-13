@@ -98,6 +98,7 @@ defmodule Given.Case do
   def setup_a(_context) do
     [a: 1]
   end
+  ```
   """
 
   @doc false

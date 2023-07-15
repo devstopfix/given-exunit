@@ -103,9 +103,7 @@ defmodule Given.ParserTest do
   end
 
   def assert_invalid_scenario(prose) do
-    assert_raise SyntaxError, fn ->
-      parse!(prose, %{file: "", line: 0})
-    end
+    assert {:error, SyntaxError, _} = parse!(prose, %{file: "", line: 0})
   end
 
   def given_(_, _), do: nil

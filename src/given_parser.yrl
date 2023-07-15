@@ -12,6 +12,7 @@ Terminals
 and_ 
 atom 
 date 
+float
 given_ 
 hexadecimal 
 int
@@ -69,6 +70,7 @@ terms -> term terms : ['$1'|'$2'].
 
 term -> atom        : extract_value('$1').
 term -> date        : extract_date('$1').
+term -> float       : extract_value('$1').
 term -> hexadecimal : extract_hexadecimal('$1').
 term -> int         : extract_value('$1').
 term -> range       : extract_value('$1').

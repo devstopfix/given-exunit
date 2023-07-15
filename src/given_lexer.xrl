@@ -7,6 +7,7 @@ AND        = (And|AND)
 
 ATOM        = :[a-z_]+
 HEXADECIMAL = 0x[0-9a-fA-F]+
+FLOAT       = -?[0-9]+[\.][0-9]+
 INT         = -?[0-9]+
 POS         = [0-9]+
 STRING      = "([^"]*)"
@@ -27,13 +28,14 @@ Rules.
 {DATE}            : {token, {date, TokenLine, characters_to_binary(TokenChars)}}.
 {TIME}            : {token, {time, TokenLine, characters_to_binary(TokenChars)}}.
 {GIVEN}           : {token, {given_, TokenLine}}.
-{POS}-{POS}       : {token, {range, TokenLine, to_range(TokenChars)}}.
-{INT}             : {token, {int,  TokenLine, list_to_integer(TokenChars)}}.
 {HEXADECIMAL}     : {token, {hexadecimal, TokenLine, characters_to_binary(TokenChars)}}.
-{STRING}          : {token, {string, TokenLine, quoted_characters_to_binary(TokenChars)}}.
 {THEN}            : {token, {then_, TokenLine}}.
 {WHEN}            : {token, {when_, TokenLine}}.
 {WORD}            : {token, {word, TokenLine, characters_to_binary(TokenChars)}}.
+{STRING}          : {token, {string, TokenLine, quoted_characters_to_binary(TokenChars)}}.
+{FLOAT}           : {token, {float, TokenLine, list_to_float(TokenChars)}}.
+{POS}-{POS}       : {token, {range, TokenLine, to_range(TokenChars)}}.
+{INT}             : {token, {int,  TokenLine, list_to_integer(TokenChars)}}.
 {WHITESPACE}+     : skip_token.
 
 Erlang code.

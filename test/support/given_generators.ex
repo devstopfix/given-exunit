@@ -64,9 +64,12 @@ defmodule Given.Generators do
   def any_term,
     do:
       elements([
+        exactly(0),
         pos_integer(),
         neg_integer(),
         integer(),
+        non_neg_float(),
+        float(),
         iso8601_date(),
         iso8601_time(),
         hex_string(),

@@ -5,16 +5,14 @@ defmodule Given.ParserTest do
   import Given.Parser, only: [parse!: 2]
   alias Given.SyntaxError
 
-  # Uncomment to see "Not implemented"
-  # scenario "Placeholder"
+  @tag :failing_test
+  scenario "Placeholder fails as not implemented"
 
-  # # Uncomment to see error at line 11 (off by one!)
-  # scenario "Fails", ~s"""
-  # Given 0
-  # Bang!
-  # """
-
-  # scenario "Given", ~s[Given]
+  @tag :failing_test
+  scenario "Fails at wrong line", ~s"""
+  Given 0
+  Bang!
+  """
 
   describe "Parse atoms" do
     scenario "Given atom", ~s[Given :a When to string Then a]

@@ -64,6 +64,11 @@ When changing the grammar or the parser, run tests with:
 
     PROPCHECK_NUMTESTS=20000 mix test
 
+Run deliberately failing tests with:
+
+    mix test --only failing_test
+
+
 [case]: https://hexdocs.pm/given_exunit/Given.Case.html
 [parser]: https://hexdocs.pm/given_exunit/Given.Parser.html
 [docs]: https://hexdocs.pm/given_exunit

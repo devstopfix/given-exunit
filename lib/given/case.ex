@@ -175,8 +175,12 @@ defmodule Given.Case do
           end
 
         {:error, error, args} ->
-          def unquote(name)(_context) do
-            raise unquote(error), unquote(args)
+          if Module.get_attribute(mod, :given_fail_compile, false) == true do
+            raise error, args
+          else
+            def unquote(name)(_context) do
+              raise unquote(error), unquote(args)
+            end
           end
       end
     end

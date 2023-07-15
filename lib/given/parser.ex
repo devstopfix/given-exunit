@@ -16,6 +16,7 @@ defmodule Given.Parser do
 
   * atoms - only simple roman alphabet with colon prefix e.g. `:abc`
   * dates - ISO-8601 in the format `YYYY-MM-DD` becomes `Date`
+  * floats
   * hexadecimal - with `0x` prefix e.g. `0xFE` is 254
   * integer - positive and negative base 10 without separators
   * range - a dashed pair of positive integers e.g. `1-6` becomes `1..6`
@@ -26,7 +27,6 @@ defmodule Given.Parser do
   Not currently supported but planned:
   * atoms with extended alphabet
   * date times
-  * floats
   * lists
   * time locale
   * words using any alphabet

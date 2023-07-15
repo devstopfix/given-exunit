@@ -159,10 +159,6 @@ defmodule Given.Case do
   defmacro scenario(test_name, prose) do
     %{module: mod, file: file, line: line} = __CALLER__
 
-    # result = quote bind_quoted: [prose: prose] do
-    #   Given.Parser.parse!(prose, %{file: file, line: line})
-    # end
-
     quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, prose: prose] do
       parsed = Given.Parser.parse!(prose, %{file: file, line: line})
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])

@@ -33,7 +33,7 @@ defmodule Given.ContextTest do
     Then :b replaced :a
     """
 
-    # TODO enable
+    # Uncomment to fail the test
     # scenario "steps can fail the test", ~s"""
     # Given :a is 1
     # When fail

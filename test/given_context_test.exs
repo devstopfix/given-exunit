@@ -33,12 +33,12 @@ defmodule Given.ContextTest do
     Then :b replaced :a
     """
 
-    # Uncomment to fail the test
-    # scenario "steps can fail the test", ~s"""
-    # Given :a is 1
-    # When fail
-    # Then :a is 66
-    # """
+    @tag :failing_test
+    scenario "steps can fail the test", ~s"""
+    Given :a is 1
+    When fail
+    Then :a is 66
+    """
   end
 
   def given_({:a, :is, 1}, %{a: 1}), do: true

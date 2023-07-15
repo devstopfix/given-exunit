@@ -4,8 +4,8 @@ defmodule Given.FailCompileTest do
 
   scenario "Good", ~s(Given 42)
 
-  # # Uncomment to fail test
-  # scenario "Invalid", ~s(Having 42)
+  @tag :failing_test
+  scenario "Invalid", ~s(Having 42)
 
   def given_(_, _), do: true
 end

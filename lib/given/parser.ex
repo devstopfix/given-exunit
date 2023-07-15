@@ -62,19 +62,19 @@ defmodule Given.Parser do
   Parse a textual scenario into a keyword list of clauses.
 
   Intended for internal use - expects the `__CALLER__` struct to be supplied
-  and fails fast by raising an error.
+  and returns error constructor in case of syntax error.
   """
-  @spec parse!(input, Macro.Env.t()) :: {:ok, Keyword.t()} | no_return
+  @spec parse!(input, Macro.Env.t()) :: {:ok, Keyword.t()} | {:error, atom, Keyword.t()}
   def parse!(prose, %{file: file, line: line}) do
     case parse(prose) do
       {:ok, result} ->
         {:ok, result}
 
       {:error, {sub_line, :given_lexer, error}, _} ->
-        raise SyntaxError, error: error, file: file, line: line + sub_line - 1
+        {:error, SyntaxError, [error: error, file: file, line: line + sub_line - 1]}
 
       {:error, {sub_line, :given_parser, error}} ->
-        raise SyntaxError, error: error, file: file, line: line + sub_line - 1
+        {:error, SyntaxError, [error: error, file: file, line: line + sub_line - 1]}
     end
   end
 end

@@ -43,7 +43,11 @@ defmodule Given.Case do
   THEN post-condition AND another post-condition
   ```
 
-  NOTE The error messages on the parser are not yet very descriptive!
+  The error messages on the parser are not yet very descriptive! If there is
+  a problem then a `Given.SyntaxError` will be raised when the test is run
+  however you may also fail the compile with this flag:
+
+      use Given.Case, fail_compile: true
 
   If a scenario is required but has not yet been written you can write a
   failing test as you would in `ExUnit.Case` by writing a placeholder with a
@@ -102,7 +106,12 @@ defmodule Given.Case do
   """
 
   @doc false
-  defmacro __using__(_) do
+  defmacro __using__(opts) do
+    calling_module = __CALLER__.module
+    fail_compile = Keyword.get(opts, :fail_compile, false)
+    Module.register_attribute(calling_module, :given_fail_compile, accumulate: false)
+    Module.put_attribute(calling_module, :given_fail_compile, fail_compile)
+
     quote do
       import unquote(__MODULE__)
     end
@@ -150,18 +159,25 @@ defmodule Given.Case do
   defmacro scenario(test_name, prose) do
     %{module: mod, file: file, line: line} = __CALLER__
 
-    steps =
-      quote bind_quoted: [prose: prose] do
-        {:ok, steps} = Given.Parser.parse!(prose, %{file: file, line: line})
-        steps
-      end
+    # result = quote bind_quoted: [prose: prose] do
+    #   Given.Parser.parse!(prose, %{file: file, line: line})
+    # end
 
-    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, steps: steps] do
+    quote bind_quoted: [test_name: test_name, mod: mod, file: file, line: line, prose: prose] do
+      parsed = Given.Parser.parse!(prose, %{file: file, line: line})
       name = ExUnit.Case.register_test(mod, file, line, :test, test_name, [:scenario])
 
-      def unquote(name)(context) do
-        steps = unquote(Macro.escape(steps))
-        Given.Case.execute_steps(context, unquote(mod), steps)
+      case parsed do
+        {:ok, steps} ->
+          def unquote(name)(context) do
+            steps = unquote(Macro.escape(steps))
+            Given.Case.execute_steps(context, unquote(mod), steps)
+          end
+
+        {:error, error, args} ->
+          def unquote(name)(_context) do
+            raise unquote(error), unquote(args)
+          end
       end
     end
   end

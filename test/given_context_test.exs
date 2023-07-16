@@ -41,10 +41,12 @@ defmodule Given.ContextTest do
     """
   end
 
+  @impl Given.Step
   def given_({:a, :is, 1}, %{a: 1}), do: true
 
   def given_({:b, :is, n}, _), do: [b: n]
 
+  @impl Given.Step
   def when_({:c, :equals, :a, :plus, :b}, %{a: a, b: b}), do: [c: a + b]
 
   def when_({:b, :is, n}, %{a: 1}), do: [b: n]
@@ -55,6 +57,7 @@ defmodule Given.ContextTest do
 
   def when_({:fail}, _), do: false
 
+  @impl Given.Step
   def then_({:c, :equals, expected}, %{c: c}), do: assert(c == expected)
 
   def then_({:both}, %{a: 1, b: 2}), do: true

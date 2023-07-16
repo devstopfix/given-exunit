@@ -17,4 +17,6 @@ defmodule Given.ParserTypesTest do
   def given_({:integer, 0}, _), do: true
   def given_({:string, "a & b"}, _), do: true
   def given_({:time, ~T[17:00:59]}, _), do: true
+  def when_(_, _), do: false
+  def then_(_, _), do: false
 end

@@ -45,7 +45,7 @@ defmodule Given.Step do
   @doc """
   Run assertions on the context.
 
-  Normally would not change the context so return an empty list.
+  Normally would not change the context so return the result of an assertion.
   Note the trailing underscore to be consistent with `when_`.
   """
   @callback then_(step, context) :: result

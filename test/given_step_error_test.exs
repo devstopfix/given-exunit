@@ -16,4 +16,6 @@ defmodule Given.StepErrorTest do
 
   def given_({:bang}, _), do: :error
   def given_({:bangbang}, _), do: {:error, :bang}
+  def when_(_, _), do: false
+  def then_(_, _), do: false
 end

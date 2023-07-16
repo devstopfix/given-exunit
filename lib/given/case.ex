@@ -115,6 +115,7 @@ defmodule Given.Case do
 
     quote do
       import unquote(__MODULE__)
+      @behaviour Given.Step
     end
   end
 

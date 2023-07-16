@@ -17,7 +17,7 @@ defmodule Given.MixProject do
       ],
       source_url: "https://github.com/devstopfix/given-exunit",
       start_permanent: Mix.env() == :prod,
-      version: "1.22.202"
+      version: "1.22.203"
     ]
   end
 

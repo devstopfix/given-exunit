@@ -9,4 +9,6 @@ defmodule Given.FailCompileTest do
   # scenario "Invalid", ~s(Having 42)
 
   def given_(_, _), do: true
+  def when_(_, _), do: false
+  def then_(_, _), do: false
 end

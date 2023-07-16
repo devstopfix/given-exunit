@@ -108,9 +108,10 @@ defmodule Given.Case do
   @doc false
   defmacro __using__(opts) do
     calling_module = __CALLER__.module
-    fail_compile = Keyword.get(opts, :fail_compile, false)
-    Module.register_attribute(calling_module, :given_fail_compile, accumulate: false)
-    Module.put_attribute(calling_module, :given_fail_compile, fail_compile)
+
+    if Keyword.get(opts, :fail_compile, false) == true do
+      Module.put_attribute(calling_module, :given_fail_compile, true)
+    end
 
     quote do
       import unquote(__MODULE__)
@@ -171,7 +172,7 @@ defmodule Given.Case do
           end
 
         {:error, error, args} ->
-          if Module.get_attribute(mod, :given_fail_compile, false) == true do
+          if Module.get_attribute(mod, :given_fail_compile, false) do
             raise error, args
           else
             def unquote(name)(_context) do

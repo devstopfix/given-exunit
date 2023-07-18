@@ -196,16 +196,19 @@ defmodule Given.Case do
         true ->
           context
 
-        [] ->
-          context
-
         [{k, _v} | _] when is_atom(k) ->
           Enum.reduce(result, context, fn {k, v}, acc ->
             Map.put(acc, k, v)
           end)
 
-        [k | _] = ks when is_atom(k) ->
-          Map.drop(context, ks)
+        f when is_function(f, 1) ->
+          case f.(context) do
+            m when is_map(m) ->
+              m
+
+            _ ->
+              raise RuntimeError, "Step #{inspect(step)} did not return new context as map"
+          end
 
         false ->
           raise RuntimeError, inspect(args)

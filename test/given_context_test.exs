@@ -51,9 +51,9 @@ defmodule Given.ContextTest do
 
   def when_({:b, :is, n}, %{a: 1}), do: [b: n]
 
-  def when_({:nop}, _), do: []
+  def when_({:nop}, _), do: true
 
-  def when_({:delete, key}, _) when key in [:a], do: [key]
+  def when_({:delete, key}, _) when key in [:a], do: fn ctx -> Map.delete(ctx, key) end
 
   def when_({:fail}, _), do: false
 

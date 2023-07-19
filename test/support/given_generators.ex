@@ -116,7 +116,7 @@ defmodule Given.Generators do
   end
 
   def atom_ do
-    let a <- elements(~w[a bb ccc ddd]a) do
+    let a <- elements(~w[a bb ccc ddd E FF GGG]a) do
       inspect(a)
     end
   end

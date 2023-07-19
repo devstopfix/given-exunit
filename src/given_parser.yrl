@@ -34,7 +34,7 @@ given_clause -> given_ terms : {given_, list_to_tuple('$2')}.
 
 % Given And
 and_given_clauses -> and_given : ['$1'].
-and_given_clauses -> and_given and_given_clauses: ['$1'].
+and_given_clauses -> and_given and_given_clauses: ['$1'|'$2'].
 and_given -> and_ terms : {given_, list_to_tuple('$2')}.
 
 % When

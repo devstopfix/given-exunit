@@ -16,7 +16,7 @@ WHITESPACE  = [\s\t\n\r,\.]
 WORD        = [a-zA-Z]+
 
 D          = [0-9]
-DD         = {D}{D}2
+DD         = {D}{D}
 DDDD       = {D}{D}{D}{D}
 TIME       = {DD}:{DD}:{DD}
 DATE       = {DDDD}-{DD}-{DD}

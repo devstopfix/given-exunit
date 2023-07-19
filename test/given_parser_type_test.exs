@@ -3,6 +3,7 @@ defmodule Given.ParserTypesTest do
   use Given.Case
 
   describe "Parse type" do
+    scenario "atom", ~s[Given atom :BAR]
     scenario "date", ~s[Given date 2014-09-18]
     scenario "float", ~s[Given float 1.6180]
     scenario "integer", ~s[Given integer 0]
@@ -11,6 +12,7 @@ defmodule Given.ParserTypesTest do
     scenario "time", ~s[Given time 17:00:59]
   end
 
+  def given_({:atom, :BAR}, _), do: true
   def given_({:date, ~D[2014-09-18]}, _), do: true
   def given_({:die_rolls, 1..6}, _), do: true
   def given_({:float, 1.6180}, _), do: true

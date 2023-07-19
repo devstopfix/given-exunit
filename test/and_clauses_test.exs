@@ -28,15 +28,15 @@ defmodule Given.AndClausesTest do
     Then acc is 4
     """
 
-    # scenario "and and when and and", ~s"""
-    # Given 1
-    # And 2
-    # And 3
-    # When 4
-    # And 5
-    # And 6
-    # Then acc is 6
-    # """
+    scenario "and and when and and", ~s"""
+    Given 1
+    And 2
+    And 3
+    When 4
+    And 5
+    And 6
+    Then acc is 6
+    """
   end
 
   def given_({n}, _) when is_integer(n),

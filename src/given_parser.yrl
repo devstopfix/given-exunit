@@ -45,7 +45,7 @@ when_clause -> when_ terms : {when_, list_to_tuple('$2')}.
 
 % When And
 and_when_clauses -> and_when : ['$1'].
-and_when_clauses -> and_when and_when_clauses: ['$1'].
+and_when_clauses -> and_when and_when_clauses: ['$1'|'$2'].
 and_when -> and_ terms : {when_, list_to_tuple('$2')}.
 
 % Then

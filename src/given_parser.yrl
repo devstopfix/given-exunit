@@ -34,7 +34,7 @@ given_clause -> given_ terms : {given_, list_to_tuple('$2')}.
 
 % Given And
 and_given_clauses -> and_given : ['$1'].
-and_given_clauses -> and_given and_given_clauses: ['$1'].
+and_given_clauses -> and_given and_given_clauses: ['$1'|'$2'].
 and_given -> and_ terms : {given_, list_to_tuple('$2')}.
 
 % When
@@ -45,7 +45,7 @@ when_clause -> when_ terms : {when_, list_to_tuple('$2')}.
 
 % When And
 and_when_clauses -> and_when : ['$1'].
-and_when_clauses -> and_when and_when_clauses: ['$1'].
+and_when_clauses -> and_when and_when_clauses: ['$1'|'$2'].
 and_when -> and_ terms : {when_, list_to_tuple('$2')}.
 
 % Then
@@ -56,7 +56,7 @@ then_clause -> then_ terms : {then_, list_to_tuple('$2')}.
 
 % Then And
 and_then_clauses -> and_then : ['$1'].
-and_then_clauses -> and_then and_then_clauses: ['$1'].
+and_then_clauses -> and_then and_then_clauses: ['$1'|'$2'].
 and_then -> and_ terms : {then_, list_to_tuple('$2')}.
 
 

@@ -56,7 +56,7 @@ then_clause -> then_ terms : {then_, list_to_tuple('$2')}.
 
 % Then And
 and_then_clauses -> and_then : ['$1'].
-and_then_clauses -> and_then and_then_clauses: ['$1'].
+and_then_clauses -> and_then and_then_clauses: ['$1'|'$2'].
 and_then -> and_ terms : {then_, list_to_tuple('$2')}.
 
 

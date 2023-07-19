@@ -5,7 +5,7 @@ WHEN       = (When|WHEN)
 THEN       = (Then|THEN)
 AND        = (And|AND)
 
-ATOM        = :[a-z_]+
+ATOM        = :[a-zA-Z_]+
 HEXADECIMAL = 0x[0-9a-fA-F]+
 FLOAT       = -?[0-9]+[\.][0-9]+
 INT         = -?[0-9]+
@@ -16,7 +16,7 @@ WHITESPACE  = [\s\t\n\r,\.]
 WORD        = [a-zA-Z]+
 
 D          = [0-9]
-DD         = {D}{D}
+DD         = {D}{D}2
 DDDD       = {D}{D}{D}{D}
 TIME       = {DD}:{DD}:{DD}
 DATE       = {DDDD}-{DD}-{DD}
